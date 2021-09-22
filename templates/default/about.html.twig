@@ -1,0 +1,53 @@
+{#  préciser le theme , le temple #}
+{% extends('base.html.twig') %}
+
+{% block title %} Liste de personnes {% endblock %}
+
+
+{% block body %}
+<div class="container">
+<div class="col-6">
+<h1>liste de personnes </h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+   {% for personne in tableau %}
+    <tr>
+        <td>{{ personne.prenom }}</td>
+        <td>{{ personne.nom }}</td>
+        <td>
+            <a href="{{ path('detail',{id: personne.id}) }}" class="btn btn-primary">voir</a>
+        </td>
+        <td>
+            <a href="{{ path('personne_enlever',{id: personne.id}) }}" class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+            </a>
+
+        </td>
+        <td>
+            <a href="{{ path('personne_modif_dure',{id: personne.id}) }}" class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </a>
+
+        </td>
+    </tr>
+   {% endfor %}
+    </tbody>
+</table>
+    <a href="{{ path('personne_ajouter_dure') }}" class="btn btn-success">
+        <i class="fa fa-plus"></i>
+    </a>
+
+    <a href="{{ path('personne_ajouter') }}" class="btn btn-danger">
+        <i class="fa fa-plus"></i>
+    </a>
+</div>
+</div>
+{% endblock body %}
+
+

@@ -1,0 +1,17 @@
+{% extends('base.html.twig') %}
+
+{% block title %} AJouter Personne {% endblock %}
+
+{% block body %}
+<h1>Ajouter</h1>
+
+{{ form_start(formPersonne) }} {# <form ...> #}
+
+{{ form_widget(formPersonne) }} {# <form ...> #}
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-plus"></i>
+    </button>
+
+{{ form_end(formPersonne) }} {# </form> #}
+
+{% endblock body %}
