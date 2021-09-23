@@ -121,7 +121,27 @@ class DefaultController extends AbstractController
         return $this->render('default/ajouter.html.twig',
             ['formPersonne'=> $formPersonne->createView()]);
     }
-
-
+//----------------------------------------------------------------
+    /**
+     * @Route("/modifier/{id}", name="personne_modifier")
+     */
+    public function modifier(Personne $personne,Request $request): Response
+    {
+       // $personne = new Personne();
+        // associe obj personne au Form.
+        $formPersonne = $this->createForm(PersonneType::class,$personne);
+        // hydraté $personne en fct du formulaire
+        $formPersonne->handleRequest($request);
+        // si le form est validé.
+        if ($formPersonne->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            //$em->persist($personne);
+            $em->flush();
+            // je redirige
+            return $this->redirectToRoute('about_us');
+        }
+        return $this->render('default/modifier.html.twig',
+            ['formPersonne'=> $formPersonne->createView()]);
+    }
 
 }

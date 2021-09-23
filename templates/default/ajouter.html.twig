@@ -6,12 +6,12 @@
 <h1>Ajouter</h1>
 
 {{ form_start(formPersonne) }} {# <form ...> #}
-
+<div class="col-4">
 {{ form_widget(formPersonne) }} {# <form ...> #}
     <button type="submit" class="btn btn-success">
         <i class="fa fa-plus"></i>
     </button>
-
+</div>
 {{ form_end(formPersonne) }} {# </form> #}
 
 {% endblock body %}

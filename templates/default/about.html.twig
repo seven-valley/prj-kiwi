@@ -21,6 +21,11 @@
         <td>{{ personne.prenom }}</td>
         <td>{{ personne.nom }}</td>
         <td>
+            {%  if personne.categ %}
+             {{ personne.categ.nom }}
+            {% endif %}
+        </td>
+        <td>
             <a href="{{ path('detail',{id: personne.id}) }}" class="btn btn-primary">voir</a>
         </td>
         <td>
@@ -31,6 +36,13 @@
         </td>
         <td>
             <a href="{{ path('personne_modif_dure',{id: personne.id}) }}" class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </a>
+
+        </td>
+
+        <td>
+            <a href="{{ path('personne_modifier',{id: personne.id}) }}" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
             </a>
 

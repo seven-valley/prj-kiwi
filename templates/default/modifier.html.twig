@@ -1,0 +1,19 @@
+{% extends('base.html.twig') %}
+
+{% block title %} Modifier Personne {% endblock %}
+
+{% block body %}
+<h1>Modifier</h1>
+
+{{ form_start(formPersonne) }} {# <form ...> #}
+    <div class="row">
+        <div class="col-6">
+        {{ form_widget(formPersonne) }} {# <form ...> #}
+            <button type="submit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+            </button>
+        </div>
+    </div>
+{{ form_end(formPersonne) }} {# </form> #}
+
+{% endblock body %}
