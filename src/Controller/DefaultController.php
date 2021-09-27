@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Personne;
 use App\Form\PersonneType;
+use App\Repository\CategRepository;
 use App\Repository\PersonneRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -103,9 +104,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/ajouter/", name="personne_ajouter")
      */
-    public function ajouter(Request $request): Response
+    public function ajouter(Request $request,CategRepository $repo): Response
     {
+        $categ = $repo->find(1);
         $personne = new Personne();
+       // $personne->setCateg($categ);
         // associe obj personne au Form.
         $formPersonne = $this->createForm(PersonneType::class,$personne);
         // hydraté $personne en fct du formulaire

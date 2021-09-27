@@ -24,10 +24,7 @@ class Categ
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Personne::class, mappedBy="categ")
-     */
-    private $personnes;
+
 
     public function __construct()
     {
@@ -51,33 +48,5 @@ class Categ
         return $this;
     }
 
-    /**
-     * @return Collection|Personne[]
-     */
-    public function getPersonnes(): Collection
-    {
-        return $this->personnes;
-    }
 
-    public function addPersonne(Personne $personne): self
-    {
-        if (!$this->personnes->contains($personne)) {
-            $this->personnes[] = $personne;
-            $personne->setCateg($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonne(Personne $personne): self
-    {
-        if ($this->personnes->removeElement($personne)) {
-            // set the owning side to null (unless already changed)
-            if ($personne->getCateg() === $this) {
-                $personne->setCateg(null);
-            }
-        }
-
-        return $this;
-    }
 }

@@ -15,7 +15,7 @@ class PersonneType extends AbstractType
             ->add('prenom')
             ->add('nom')
             ->add('age')
-            ->add('categ',null,['choice_label'=>'nom'])
+            ->add('categ',null,['choice_label'=>'nom','placeholder'=>'Aucune Categ'])
         ;
     }
 
