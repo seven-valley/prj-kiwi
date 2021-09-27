@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello APIController!{% endblock %}
+{% block title %}Liste de personnes{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>
+    Personnnes
+</h1>
+    <div class="col-6">
+    <table class="table table-striped">
+        <tbody id="mytbody">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </tbody>
+    </table>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/__symfony/prj-kiwi/src/Controller/APIController.php'|file_link(0) }}">src/Controller/APIController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/__symfony/prj-kiwi/templates/api/index.html.twig'|file_link(0) }}">templates/api/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+    <template id="ligne">
+        <tr>
+            <td>John</td>
+            <td>DOE</td>
+            <td>
+                <button class="btn btn-danger" data-id="23" onclick="enlever(this)">enlever</button>
+            </td>
+        </tr>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let url= 'http://localhost/__symfony/prj-kiwi/public/api/personne/';
+        axios.get(url).then( response => {
+            let tableau = response.data;
+            console.log(tableau);
+            for( let personne of tableau){
+                let tbody = document.querySelector('#mytbody');
+                let template = document.querySelector('#ligne');
+                let clone = template.content.cloneNode(true);
+                // je met le clone a l'intérieur du tbody
+
+                 //  un tableau de selecteur td
+                let td = clone.querySelectorAll("td");
+                td[0].innerHTML = personne.nom;
+                td[1].innerHTML = personne.prenom;
+                let btn = clone.querySelector('.btn-danger');
+                btn.setAttribute('data-id',personne.id);
+                tbody.appendChild(clone);
+            }
+
+        });
+        function enlever(btn){
+            let id = btn.getAttribute('data-id');
+            console.log(id);
+            // effacer le btn
+            //btn.remove();
+            btn.parentElement.parentElement.remove();
+            // axios.delete()...
+        }
+    </script>
+
+
 {% endblock %}

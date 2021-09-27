@@ -78,4 +78,11 @@ class APIController extends AbstractController
       $em->flush();
         return $this->json($personne);
     }
+    /**
+     * @Route("/invite", name="invite" ,methods={"GET"})
+     */
+    public function inivite(): Response
+    {
+       return $this->render('api/index.html.twig');
+    }
 }
