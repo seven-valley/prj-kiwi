@@ -44,4 +44,38 @@ class APIController extends AbstractController
         //$tab["message"]= "Ajouter de Personnes";
         return $this->json($personne);
     }
+
+    /**
+     * @Route("/api/personne/{id}", name="api_modifier_personnne" ,methods={"PUT"})
+     */
+    public function modifier(Personne $personne,Request $request,EntityManagerInterface $em): Response
+    {
+        // je dois recupérer 1 nom et 1 prenom
+        // { "nom":"WILLIS" , "prenom":"Bruce"}
+        $json =$request->getContent();
+        // transformer en objet PHP
+        $obj = json_decode($json);
+        //$categ= $obj->categ;
+        //print_r($categ);
+        //die();
+
+        //$personne  = new Personne();
+        // hydrater
+        $personne->setNom($obj->nom);
+        $personne->setPreNom($obj->prenom);
+        $em->persist($personne);
+        $em->flush();
+        //$tab["message"]= "Ajouter de Personnes";
+        return $this->json($personne);
+    }
+
+    /**
+     * @Route("/api/personne/{id}", name="api_enlever_personnne" ,methods={"DELETE"})
+     */
+    public function delete(Personne $personne,EntityManagerInterface $em): Response
+    {
+      $em->remove($personne);
+      $em->flush();
+        return $this->json($personne);
+    }
 }
