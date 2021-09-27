@@ -31,6 +31,15 @@ class ImcController extends AbstractController
         $tab["imc"]=$imc;
         return $this->json($tab);
     }
+
+    /**
+     * @Route("/calcul-imc/", name="calcul_imc" ,methods={"GET"})
+     */
+    public function calculImc(): Response
+    {
+        return $this->render('imc/index.html.twig');
+    }
+
     /**
      * @Route("/test-axios/", name="test-axios" ,methods={"POST"})
      */

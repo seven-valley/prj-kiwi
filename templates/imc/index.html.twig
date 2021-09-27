@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ImcController!{% endblock %}
+{% block title %}Calcul IMC{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/__symfony/prj-kiwi/src/Controller/ImcController.php'|file_link(0) }}">src/Controller/ImcController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/__symfony/prj-kiwi/templates/imc/index.html.twig'|file_link(0) }}">templates/imc/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h1>Calcul IMC</h1>
+    <input id="poids" placeholder="Poids"></input>
+    <br><br>
+    <input id="taille" placeholder="Taille"></input>
+    <br><br>
+    <button class="btn btn-success" onclick="calcul()">Calcul</button>
+    <br><br>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <h2 id="demo"></h2>
+    <script>
+        function calcul(){
+            //console.log('ok');
+            let url ='http://localhost/__symfony/prj-kiwi/public/imc/';
+            let poids = document.getElementById('poids').value;
+            document.getElementById('poids').value='';// vider input
+            let taille = document.getElementById('taille').value;
+            document.getElementById('taille').value='';
+            let body ={poids:poids,taille:taille};
+            axios.post(url,body).then(response =>{
+                console.log(response.data);
+                document.getElementById('demo').innerHTML= 'imc:'+response.data.imc.toFixed(1)
+                + ' tranche :'+ response.data.tranche;
+            })
+        }
+    </script>
 {% endblock %}
