@@ -51,8 +51,10 @@
             console.log(id);
             // effacer le btn
             //btn.remove();
-            btn.parentElement.parentElement.remove();
-            // axios.delete()...
+            let url2 = url + id;
+             axios.delete(url2).then( response =>{
+                 btn.parentElement.parentElement.remove();
+             });
         }
     </script>
 
