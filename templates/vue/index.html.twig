@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de Personne avec Vue JS{% endblock %}
+
+{% block body %}
+<h1>Liste de Personne avec vue JS</h1>
+    {% verbatim %}
+    <div class="col-6" id="app">
+        <div class="row">
+            <div class="col-5">
+                <input v-model="prenom" placeholder="Prénom">
+            </div>
+            <div class="col-5">
+                <input v-model="nom" placeholder="Nom">
+            </div>
+            <div class="col-2">
+                <button @click="ajouter()"
+                        class="btn btn-success">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+    <div >
+        <table>
+            <tbody>
+            <tr v-for="(personne,i) in tableau">
+                <td>{{ personne.prenom }}</td>
+                <td>{{ personne.nom }}</td>
+                <td>
+                    <button
+                    @click="enlever(i)"
+                    class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+     {% endverbatim %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const app= new Vue({
+            'el':'#app',
+            data:{
+                prenom:'',
+                nom:'',
+                tableau:[],
+                url: 'http://localhost/__symfony/prj-kiwi/public/api/personne/'
+            },
+            methods:{
+                ajouter(){
+                    //console.log('abc');
+                    let personne = {prenom : this.prenom,nom:this.nom,categ : {nom:"VIP",id:"1"}};
+                    this.prenom = ''; // vider les input
+                    this.nom = '';
+                    axios.post(this.url,personne).then( response => {
+                        this.tableau.push(response.data); // ajouter la personne
+                    });
+
+                },
+                enlever(i){
+                    //console.log(i);
+                    let id = this.tableau[i].id;
+                    console.log(id);
+                    let url2 = this.url +id;
+                    axios.delete(url2).then( response => {
+                        this.tableau.splice(i,1); // 1 nd de lignes a effacer
+                    });
+
+                }
+            },
+            mounted:function (){
+                axios.get(this.url).then( response => {
+                    this.tableau = response.data;
+                });
+            }
+        });
+    </script>
+
+{% endblock %}

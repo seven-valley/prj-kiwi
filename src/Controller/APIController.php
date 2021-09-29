@@ -33,7 +33,7 @@ class APIController extends AbstractController
         $obj = json_decode($json);
         $categ= $obj->categ;
         //print_r($categ);
-        die();
+        //die();
 
         $personne  = new Personne();
         // hydrater
